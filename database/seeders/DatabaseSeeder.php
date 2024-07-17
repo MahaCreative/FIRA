@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
     {
 
         $user = User::create([
-            'firstname' => 'guntur',
-            'lastname' => 'madjid',
+            'firstname' => 'admin',
+            'lastname' => '',
             'phone' => '082194255717',
             'address' => 'Jl diponegoro',
             'tanggal_lahir' => '1998-01-17',
-            'tempat_lahir' => 'makassar',
+            'tempat_lahir' => 'mamuju',
             'role' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
@@ -55,13 +55,7 @@ class DatabaseSeeder extends Seeder
             'gambar' => 'Image/slider2.png'
         ]);
         Slider::create([
-            'gambar' => 'Image/slider3.png'
+            'gambar' => 'Image/slider3.jpg'
         ]);
-        Informasi::factory(10)->create();
-        $this->call([
-            SettingAppsSeeder::class,
-        ]);
-        User::factory(50)->create();
-        JenisPengaduan::factory(10)->create();
     }
 }
