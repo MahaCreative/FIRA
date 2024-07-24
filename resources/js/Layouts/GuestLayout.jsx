@@ -223,7 +223,7 @@ export default function GuestLayout({ title, children }) {
                     {children}
                 </div>
                 {/* Footer */}
-                <div className="bg-[url('background.jpg')] bg-cover px-4 md:px-8 lg:px-16 py-6 transition-all ease-in-out duration-300">
+                <div className="bg-[url('/background.jpg')] bg-cover px-4 md:px-8 lg:px-16 py-6 transition-all ease-in-out duration-300">
                     <div className="flex flex-col-reverse md:flex-row-reverse md:gap-8 gap-4 justify-between items-start transition-all duration-300 ease-in-out">
                         <div className="flex flex-col w-1/3">
                             <Link
