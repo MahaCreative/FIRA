@@ -57,5 +57,8 @@ class DatabaseSeeder extends Seeder
         Slider::create([
             'gambar' => 'Image/slider3.jpg'
         ]);
+        $this->call([
+            SettingAppsSeeder::class,
+        ]);
     }
 }
