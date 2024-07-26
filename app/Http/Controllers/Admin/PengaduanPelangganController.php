@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AduanEvent;
+use App\Events\ProsesPengaduan;
 use App\Http\Controllers\Controller;
 use App\Models\JenisPengaduan;
 use App\Models\PengaduanPelanggan;
@@ -109,6 +111,7 @@ class PengaduanPelangganController extends Controller
             "long" => $request->long,
             "telph" => $request->telph,
         ]);
+        broadcast(new AduanEvent($pengaduan))->toOthers();
         return redirect()->back();
     }
 
@@ -136,6 +139,7 @@ class PengaduanPelangganController extends Controller
         $solusi_pengangan = $request->solusi_pengangan;
         $foto_penganan = $request->file('foto_penganan')->store('pengaduan/foto_pengangan');
         $pengaduan = PengaduanPelanggan::findOrFail($request->id);
+
         $pengaduan->update([
             'nama_petugas_menangani' => $namaPetugas,
             "status_lapangan" => $status_lapangan,
