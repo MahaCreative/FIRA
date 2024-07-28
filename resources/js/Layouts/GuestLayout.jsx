@@ -35,7 +35,7 @@ export default function GuestLayout({ title, children }) {
         iconSize: [32, 32],
     });
     return (
-        <>
+        <div className="">
             <Head title={title} />
             <div className="tracking-tighter font-nuito w-screen overflow-x-hidden">
                 {/* Navbar */}
@@ -160,9 +160,11 @@ export default function GuestLayout({ title, children }) {
                                         className={`${
                                             viewAll ? "" : "line-clamp-6"
                                         } font-thin tracking-tighter transition-all ease-in-out duration-300`}
-                                    >
-                                        {setting.deskripsi}
-                                    </p>
+                                        dangerouslySetInnerHTML={{
+                                            __html: setting.deskripsi,
+                                        }}
+                                    />
+
                                     <div>
                                         <p className="font-medium tracking-tighter text-teal-700">
                                             Nama Pimpinan :{" "}
@@ -223,8 +225,15 @@ export default function GuestLayout({ title, children }) {
                     {children}
                 </div>
                 {/* Footer */}
-                <div className="bg-[url('/background.jpg')] bg-cover px-4 md:px-8 lg:px-16 py-6 transition-all ease-in-out duration-300">
-                    <div className="flex flex-col-reverse md:flex-row-reverse md:gap-8 gap-4 justify-between items-start transition-all duration-300 ease-in-out">
+                <div className=" px-4 md:px-8 lg:px-16 py-6 transition-all ease-in-out duration-300 relative overflow-x-hidden">
+                    <div className="absolute left-0 top-0 w-full h-full ">
+                        <img
+                            src="/background.jpg"
+                            alt=""
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="flex flex-col-reverse md:flex-row-reverse md:gap-8 gap-4 justify-between items-start transition-all duration-300 ease-in-out relative">
                         <div className="flex flex-col w-1/3">
                             <Link
                                 href={route("home")}
@@ -351,6 +360,6 @@ export default function GuestLayout({ title, children }) {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

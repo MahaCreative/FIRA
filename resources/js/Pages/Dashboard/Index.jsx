@@ -123,7 +123,7 @@ export default function Index({
     };
 
     return (
-        <div>
+        <div className="">
             <div className="w-full tracking-tighter">
                 {auth.user.role !== "pelanggan" && (
                     <div className="my-3 text-white grid grid-cols-2 md:grid-cols-4 transition-all duration-300 ease-in-out gap-3">

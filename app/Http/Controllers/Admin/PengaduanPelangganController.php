@@ -88,6 +88,7 @@ class PengaduanPelangganController extends Controller
     public function store(Request $request)
     {
 
+
         $attr = $request->validate([
             "judul_pengaduan" => 'required|min:10|max:255',
             "deskripsi_pengaduan" => 'required|string|min:25',
@@ -99,6 +100,8 @@ class PengaduanPelangganController extends Controller
             "long" => "required"
         ]);
         $image = $request->file('foto_pengaduan')->store('foto_pengaduan');
+        $jenisPengaduan = JenisPengaduan::findOrFail($request->jenis_pengaduan_id);
+
         $pengaduan = PengaduanPelanggan::create([
             'kd_pengaduan' => now()->format('dmy') . $request->user()->id . PengaduanPelanggan::count() + 1,
             "wilayah" => $request->wilayah,
@@ -111,6 +114,22 @@ class PengaduanPelangganController extends Controller
             "long" => $request->long,
             "telph" => $request->telph,
         ]);
+        $wilayah = WilayahKerja::with('petugas')->where('nama_wilayah', $request->wilayah)->first();
+        foreach ($wilayah->petugas as $item) {
+            $data = array(
+                'target' => $item->phone,
+                'message' => "
+Terdapat 1 pengaduan baru yang perlu ditangani segera, silahkan menghubungi pelapor untuk informasi lebih lanjut tentang pengaduan yang diajukan
+Jenis Pengaduan : *$jenisPengaduan->nama*
+Judul Pengauan : *$request->judul_pengaduan*
+WhatsApp Pelapor: *$request->telph*
+Lihat langsung detail pengaduan melalui link berikut
+https://aduanplnpangale.site/pelanggan/show-pengaduan-pelanggan?kd_pelanggan=$pengaduan->kd_pengaduan
+                ",
+                'countryCode' => '62', //optional
+            );
+            $this->message($data);
+        }
         broadcast(new AduanEvent($pengaduan))->toOthers();
         return redirect()->back();
     }
@@ -200,5 +219,32 @@ class PengaduanPelangganController extends Controller
         $pengaduan = $query->latest()->get();
         $wilayah = WilayahKerja::latest()->get();
         return inertia('Admin/PengaduanPelanggan/Cetak', compact('pengaduan', 'wilayah', 'filter'));
+    }
+
+    public function message($data)
+    {
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: oAMf+vjnQeV9gmqAGRb8' //change TOKEN to your actual token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+        }
+        curl_close($curl);
     }
 }

@@ -19,10 +19,27 @@ import {
 import DropdownMenu from "./DropdownMenu";
 import { usePage } from "@inertiajs/react";
 
-export default function Sidebar({ children, open, setOpen }) {
+export default function Sidebar({ children, open, setOpen, widgetRef }) {
     const sidebarRef = useRef();
     const { auth } = usePage().props;
+    useEffect(() => {
+        const handle = (e) => {
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(e.target) &&
+                widgetRef.current &&
+                !widgetRef.current.contains(e.target)
+            ) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener("click", handle);
 
+        // Cleanup event listener on component unmount
+        return () => {
+            document.removeEventListener("click", handle);
+        };
+    }, [sidebarRef]);
     return (
         <>
             <div

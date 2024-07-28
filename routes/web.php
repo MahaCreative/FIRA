@@ -45,6 +45,7 @@ Route::get('', [HomeController::class, 'index'])->name('home');
 Route::get('informasi', [InformasiController::class, 'index'])->name('informasi');
 Route::get('informasi-show/{informasi}', [InformasiController::class, 'show'])->name('informasi.show');
 Route::get('informasi-pemadaman', [InformasiPemadamanController::class, 'index'])->name('informasi-pemadaman');
+Route::get('informasi-pemadaman/{id}', [InformasiPemadamanController::class, 'show'])->name('show-informasi-pemadaman');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

@@ -23,7 +23,7 @@ export default function MenuDropdown({ auth }) {
                 <img
                     src={"/storage/" + auth.user.image}
                     alt=""
-                    className="w-10"
+                    className="w-[35px] h-[35px] object-cover"
                 />
                 <p className="text-white capitalize font-medium">
                     {auth.user.firstname}

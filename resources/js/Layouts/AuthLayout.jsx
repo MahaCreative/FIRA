@@ -19,7 +19,7 @@ export default function AuthLayout({ children, title }) {
     const [notif, setNotif] = useState(false);
     const [dataNotif, setDataNotif] = useState([]);
     const audio = useRef();
-
+    const widgetRef = useRef();
     const closeNotif = () => {
         setNotif(false);
         setDataNotif([]);
@@ -47,24 +47,30 @@ export default function AuthLayout({ children, title }) {
     });
 
     return (
-        <>
+        <div>
             <Head title={title} />
 
-            {notif && (
-                <audio ref={audio} src="./success.mp3" autoPlay loop></audio>
-            )}
-            <div className="">
+            <div className="overflow-x-hidden overflow-y-visible max-w-full relative scrollbar-none">
+                {notif && (
+                    <audio
+                        ref={audio}
+                        src="./success.mp3"
+                        autoPlay
+                        loop
+                    ></audio>
+                )}
                 <div className="relative">
                     <div className="bg-teal-500  w-full flex justify-between items-center fixed z-[9999]">
-                        <div className="px-4 py-2">
+                        <div className="px-4 py-1">
                             <button
+                                ref={widgetRef}
                                 onClick={() => setOpen(!open)}
                                 className="text-white text-xl hover:bg-teal-700 hover:text-teal-500 duration-300 ease-in-out transition-all p-2 rounded-md"
                             >
                                 <Widgets color="inherit" fontSize="inherit" />
                             </button>
                         </div>
-                        <div className="flex gap-3 items-center px-4">
+                        <div className="flex gap-x-3 items-center px-4">
                             <MenuDropdown auth={auth} />
                             <Link
                                 href={
@@ -88,11 +94,15 @@ export default function AuthLayout({ children, title }) {
                             </Link>
                         </div>
                     </div>
-                    <div className="relative top-14">
-                        <Sidebar open={open} setOpen={setOpen} />
+                    <div className="relative top-12">
+                        <Sidebar
+                            widgetRef={widgetRef}
+                            open={open}
+                            setOpen={setOpen}
+                        />
                     </div>
                 </div>
-                <div className="relative top-16">
+                <div className="relative top-16 ">
                     <div className="py-2 border-b border-teal-700 w-full flex gap-3 px-8 text-teal-800 items-center leading-none ">
                         <Link
                             as="div"
@@ -107,7 +117,7 @@ export default function AuthLayout({ children, title }) {
                         <p className="leading-none">/</p>
                         <p className="capitalize">{title}</p>
                     </div>
-                    <div className="py-2 px-4">{children}</div>
+                    <div className="py-2 px-4 scrollbar-thin ">{children}</div>
                 </div>
 
                 <motion.div
@@ -161,6 +171,6 @@ export default function AuthLayout({ children, title }) {
                     )}
                 </motion.div>
             </div>
-        </>
+        </div>
     );
 }
