@@ -15,6 +15,7 @@ export default function Index() {
         image: "",
         email: "",
         password: "",
+        no_meter: "",
     });
 
     const submit = (e) => {
@@ -113,6 +114,20 @@ export default function Index() {
                         name={"phone"}
                         value={data.phone}
                         errors={errors.phone}
+                        onChange={(e) =>
+                            setData({
+                                ...data,
+                                [e.target.name]: e.target.value,
+                            })
+                        }
+                    />
+                    <InputText
+                        required
+                        className="w-full"
+                        title={"Nomor Meter"}
+                        name={"no_meter"}
+                        value={data.no_meter}
+                        errors={errors.no_meter}
                         onChange={(e) =>
                             setData({
                                 ...data,

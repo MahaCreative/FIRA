@@ -41,11 +41,18 @@ export default function GuestLayout({ title, children }) {
                 {/* Navbar */}
                 <div className="bg-white py-2 px-4 flex justify-between items-center border-b border-teal-700">
                     <div className="flex gap-3 items-center">
-                        <img
-                            src={"/storage/" + setting.logo}
-                            className="w-8"
-                            alt=""
-                        />
+                        <div className="flex gap-3 items-center">
+                            <img
+                                src={"/storage/" + setting.logo}
+                                className="w-8"
+                                alt=""
+                            />
+                            <img
+                                src={"/storage/fikom.png"}
+                                className="w-8"
+                                alt=""
+                            />
+                        </div>
                         <h3 className="font-medium capitalize tracking-tighter text-teal-700 transition-all duration-300 ease-in-out text-xs md:text-sm lg:text-base">
                             {setting.nama_kantor}
                         </h3>
@@ -225,14 +232,16 @@ export default function GuestLayout({ title, children }) {
                     {children}
                 </div>
                 {/* Footer */}
+
                 <div className=" px-4 md:px-8 lg:px-16 py-6 transition-all ease-in-out duration-300 relative overflow-x-hidden">
                     <div className="absolute left-0 top-0 w-full h-full ">
                         <img
-                            src="/background.jpg"
+                            src="/storage/background.jpg"
                             alt=""
                             className="w-full h-full object-cover"
                         />
                     </div>
+
                     <div className="flex flex-col-reverse md:flex-row-reverse md:gap-8 gap-4 justify-between items-start transition-all duration-300 ease-in-out relative">
                         <div className="flex flex-col w-1/3">
                             <Link
@@ -358,6 +367,10 @@ export default function GuestLayout({ title, children }) {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="flex justify-end px-8">
+                    Created By Fira FIKOM UNIKA (2024)
                 </div>
             </div>
         </div>

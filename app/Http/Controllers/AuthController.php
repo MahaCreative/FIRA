@@ -45,6 +45,7 @@ class AuthController extends Controller
         $attr = $request->validate([
             "firstname" => "required|string|min:3",
             "lastname" => "nullable|string|min:3",
+            'no_meter' => "required|numeric|min:4",
             "phone" => "required|numeric|digits:12",
             "address" => "required|string|min:10",
             "tanggal_lahir" => "required|date|before:now",

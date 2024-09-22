@@ -92,6 +92,11 @@ export default function AuthLayout({ children, title }) {
                                     />
                                 </Badge>
                             </Link>
+                            <img
+                                src={"/storage/fikom.png"}
+                                className="w-8"
+                                alt=""
+                            />
                         </div>
                     </div>
                     <div className="relative top-12">
@@ -170,6 +175,9 @@ export default function AuthLayout({ children, title }) {
                         </>
                     )}
                 </motion.div>
+            </div>
+            <div className="flex justify-end px-8">
+                Created By Fira FIKOM UNIKA (2024)
             </div>
         </div>
     );
