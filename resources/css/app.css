@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-swal {
+    z-index: 999999; /* Atur z-index sesuai kebutuhan Anda */
+}
+
+.bgFooter {
+    background-image: url("../../public/background.jpg");
+}
